@@ -62,16 +62,12 @@ public class WindPlane_Movement: MonoBehaviour
         if (currentTime <= 0)
         {
             currentTime = 0;
+            //Debug.Log("Timer Stop");
 
-            //Kill all tween
-            DOTween.KillAll();
-            Debug.Log("Timer Stop");
-
-            //Reset plane to null pos
-            Wind_RotateReset();
-
-            //isPlaneMoving = false
-            isWindPlaneMoving = false;
+            if (isWindPlaneMoving)
+            {
+                Wind_RotateStop();
+            }
         }
     }
 
@@ -91,6 +87,21 @@ public class WindPlane_Movement: MonoBehaviour
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.Linear);
     }*/
+
+    //public so I can access in per UnityEvent in GameOver
+    public void Wind_RotateStop()
+    {
+        //Kill all tween
+        DOTween.KillAll();
+
+        //Reset plane to null pos
+        Wind_RotateReset();
+
+        //isPlaneMoving = false
+        isWindPlaneMoving = false;
+
+        Debug.Log("Wind Stop");
+    }
 
     private void Wind_Rotate()
     {
