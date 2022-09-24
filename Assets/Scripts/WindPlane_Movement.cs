@@ -27,7 +27,7 @@ public class WindPlane_Movement: MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI timerTMP;
 
-    [Header("SuccessClearManager")]
+    [Header("Successful: DisplayScore/SuccessClear")]
     [SerializeField]
     private UnityEvent successEvent;
 
