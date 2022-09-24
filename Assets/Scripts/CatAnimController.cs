@@ -9,6 +9,8 @@ public class CatAnimController : MonoBehaviour
 /// </summary>
     private int state;
     private Animator catAnimator;
+    private bool jiggle;
+    private float jiggleTimeOut;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,16 +23,38 @@ public class CatAnimController : MonoBehaviour
     {
         
         catAnimator.SetInteger("State", state);
-        
-        
+        jiggleTimeOut  += Time.deltaTime;
+        if (jiggleTimeOut > 1)
+        {
+            catAnimator.SetBool("Jiggle", false);
+        }
+
     }
     public int GetState()
     {
         return state;
     }
-    public void SetState(int state)
+    /// <summary>
+    /// Zählt den nächsen State hoch
+    /// </summary>
+    /// <returns>Gibt den neuen State zurück</returns>
+    public int NextState()
     {
-        this.state = state;
+        state++;
         Debug.Log("State was set to" + state);
+        return state;
+    }
+    public void Jiggle()
+    {
+        if (!catAnimator.GetBool("Jiggle"))
+        {
+            catAnimator.SetBool("Jiggle", true);
+            //Debug.Log("Jiggle");
+            jiggleTimeOut = 0;
+        }
+    }
+    public void Release()
+    {
+        catAnimator.SetTrigger("Jump");
     }
 }
