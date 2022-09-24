@@ -13,7 +13,18 @@ public class DisplayScore: MonoBehaviour
     void Start()
     {
         //Load the highScore from PlayerPref
-        highScoreTMP.text = PlayerPrefs.GetInt("HighScore").ToString("0");
+        if (PlayerPrefs.HasKey("HighScore"))
+        {
+            highScoreTMP.text = PlayerPrefs.GetInt("HighScore").ToString("0");
+            Debug.Log("There is a High score of " + PlayerPrefs.GetInt("HighScore"));
+        }
+        else
+        {
+            Debug.Log("There is no High score");
+        }
+
+        //Make sure currentScore is also properly displayed
+        currentScoreTMP.text = catScriptableObject.CurrentScore.ToString("0");
     }
 
     // Update is called once per frame

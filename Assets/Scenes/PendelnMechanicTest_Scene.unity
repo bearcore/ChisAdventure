@@ -1632,7 +1632,7 @@ MonoBehaviour:
   catRigidbody: {fileID: 1694920543}
   catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af,
     type: 2}
-  dampingValue: 5
+  dampingValue: 2
 --- !u!54 &1694920543
 Rigidbody:
   m_ObjectHideFlags: 0

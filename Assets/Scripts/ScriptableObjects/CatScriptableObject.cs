@@ -77,7 +77,10 @@ public class CatScriptableObject: ScriptableObject
         }
     }
 
+    private void OnEnable()
+    {
+        currentScore = 0;
 
-
-
+        highScore = PlayerPrefs.GetInt("HighScore");
+    }
 }
