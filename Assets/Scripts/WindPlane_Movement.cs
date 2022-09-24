@@ -40,6 +40,9 @@ public class WindPlane_Movement: MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI timerTMP;
 
+    [SerializeField]
+    private int action;
+
     public bool IsWindPlaneMovingLeft
     {
         get => isWindPlaneMovingLeft;
@@ -57,6 +60,7 @@ public class WindPlane_Movement: MonoBehaviour
         windPlaneGO = this.gameObject;
 
         currentTime = windPlaneMoveDuration;
+        action = Random.Range(0, 4);
         Wind_Rotate();
     }
 
@@ -121,13 +125,19 @@ public class WindPlane_Movement: MonoBehaviour
     //Wind Rotate but random whether it start from left or right
     private void Wind_Rotate()
     {
-        int action = Random.Range(0, 1);
+
         switch (action)
         {
             case 0:
                 Wind_Rotate_Left();
                 break;
             case 1:
+                Wind_Rotate_Right();
+                break;
+            case 2:
+                Wind_Rotate_Left();
+                break;
+            case 3:
                 Wind_Rotate_Right();
                 break;
         }
@@ -148,6 +158,7 @@ public class WindPlane_Movement: MonoBehaviour
                     .InsertCallback(0.01f, Change_isWindPlaneMovingLeft)
         //After that, move right
                     .Append(windPlaneGO.transform.DORotate(-rotation, duration))
+                    //This call back is called AFTER the first Append -> duration + 0.01f
                     .InsertCallback(duration + 0.01f, Change_isWindPlaneMovingRight)
         .SetEase(Ease.Linear) //Make sure the tween is smooth
         .SetLoops(-1, LoopType.Yoyo) //We loop the amount equal of windPlaneMoveduration
@@ -171,6 +182,7 @@ public class WindPlane_Movement: MonoBehaviour
                     .InsertCallback(0.01f, Change_isWindPlaneMovingRight)
         //After that, move left
                     .Append(windPlaneGO.transform.DORotate(rotation, duration))
+                    //This call back is called AFTER the first Append -> duration + 0.01f
                     .InsertCallback(duration + 0.01f, Change_isWindPlaneMovingLeft)
         .SetEase(Ease.Linear) //Make sure the tween is smooth
         .SetLoops(-1, LoopType.Yoyo) //We loop the amount equal of windPlaneMoveduration
@@ -183,14 +195,14 @@ public class WindPlane_Movement: MonoBehaviour
     {
         isWindPlaneMovingLeft = true;
         isWindPlaneMovingRight = false;
-        Debug.Log("Moving Left");
+        //Debug.Log("Moving Left");
     }
 
     private void Change_isWindPlaneMovingRight()
     {
         isWindPlaneMovingLeft = false;
         isWindPlaneMovingRight = true;
-        Debug.Log("Moving Right");
+        //Debug.Log("Moving Right");
     }
 
     private void Wind_RotateReset()
