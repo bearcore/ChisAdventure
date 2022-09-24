@@ -86,14 +86,14 @@ public class CatController: MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                Debug.Log("Correct to the Left!");
+                //Debug.Log("Correct to the Left!");
                 catScriptableObject.StabilizationValue += correctClickStabil_Value;
             }
 
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 catScriptableObject.StabilizationValue -= correctClickStabil_Value;
-                Debug.Log("FALSE!!! (left)");
+                //Debug.Log("FALSE!!! (left)");
             }
         }
 
@@ -102,14 +102,14 @@ public class CatController: MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                Debug.Log("Correct to the Right!");
+                //Debug.Log("Correct to the Right!");
                 catScriptableObject.StabilizationValue += correctClickStabil_Value;
             }
 
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 catScriptableObject.StabilizationValue -= correctClickStabil_Value;
-                Debug.Log("FALSE!!! (right)");
+                //Debug.Log("FALSE!!! (right)");
             }
         }
 
