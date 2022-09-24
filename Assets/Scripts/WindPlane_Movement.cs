@@ -1,9 +1,19 @@
+using Assets.PlayerPrefs;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WindPlane_Movement: MonoBehaviour
 {
+    [SerializeField]
+    private CatScriptableObject catScriptableObject;
+
+    [SerializeField]
+    private WindPlaneScriptableObject windPlaneScriptableObject;
+
+    [SerializeField]
+    private GameObject catGameObject;
     //[SerializeField]
     private GameObject windPlaneGO;
 
@@ -11,28 +21,8 @@ public class WindPlane_Movement: MonoBehaviour
     //[SerializeField]
     //private float windPlaneRotateValue;
 
-    [Header("Rotation values")]
-    [SerializeField]
-    private bool isWindPlaneMoving = false;
-    [SerializeField]
-    private bool isWindPlaneMovingLeft, isWindPlaneMovingRight;
-
     [SerializeField]
     private Vector3 rotation;
-
-    [Tooltip("How slow is the tween")]
-    [SerializeField]
-    [Range(0.5f, 1f)]
-    private float minRotationSpeed = 0.5f;
-    [Tooltip("How fast is the tween")]
-    [SerializeField]
-    [Range(1f, 3f)]
-    private float maxRotationSpeed = 1f;
-
-    [Tooltip("How long is the windy duration")]
-    [SerializeField]
-    [Range(1, 6)]
-    private int windPlaneMoveDuration = 1;
 
     [Header("Timer")]
     [SerializeField]
@@ -40,26 +30,19 @@ public class WindPlane_Movement: MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI timerTMP;
 
+    [Header("SuccessClearManager")]
     [SerializeField]
-    private int action;
+    private UnityEvent successEvent;
 
-    public bool IsWindPlaneMovingLeft
-    {
-        get => isWindPlaneMovingLeft;
-        set => isWindPlaneMovingLeft = value;
-    }
-    public bool IsWindPlaneMovingRight
-    {
-        get => isWindPlaneMovingRight;
-        set => isWindPlaneMovingRight = value;
-    }
+    //[SerializeField]
+    private int action;
 
     // Start is called before the first frame update
     void Start()
     {
         windPlaneGO = this.gameObject;
 
-        currentTime = windPlaneMoveDuration;
+        currentTime = windPlaneScriptableObject.WindPlaneMoveDuration;
         action = Random.Range(0, 4);
         Wind_Rotate();
     }
@@ -70,9 +53,10 @@ public class WindPlane_Movement: MonoBehaviour
         currentTime -= 1 * Time.deltaTime;
         timerTMP.text = currentTime.ToString("0");
 
+        //If timer hasn't reach 0 -> Plane continue moving
         if (currentTime > 0)
         {
-            isWindPlaneMoving = true;
+            windPlaneScriptableObject.IsWindPlaneMoving = true;
         }
 
         //If timer hit 0
@@ -81,8 +65,17 @@ public class WindPlane_Movement: MonoBehaviour
             currentTime = 0;
             //Debug.Log("Timer Stop");
 
-            if (isWindPlaneMoving)
+            //If player succeed eg. Plane was still moving before
+            if (windPlaneScriptableObject.IsWindPlaneMoving)
             {
+                Vector3 resetRotation = new Vector3(0, 0, 0);
+                catGameObject.transform.DORotate(resetRotation, 0.1f);
+
+                //After clearing, disabled the timer;
+                timerTMP.enabled = false;
+                //Invoke clear event
+                successEvent?.Invoke();
+                //Stop the wind and make sure it return to OG position
                 Wind_RotateStop();
             }
         }
@@ -115,9 +108,9 @@ public class WindPlane_Movement: MonoBehaviour
         Wind_RotateReset();
 
         //isPlaneMoving = false
-        isWindPlaneMoving = false;
-        isWindPlaneMovingLeft = false;
-        isWindPlaneMovingRight = false;
+        windPlaneScriptableObject.IsWindPlaneMoving = false;
+        windPlaneScriptableObject.IsWindPlaneMovingLeft = false;
+        windPlaneScriptableObject.IsWindPlaneMovingRight = false;
 
         //Debug.Log("Wind Stop");
     }
@@ -125,7 +118,6 @@ public class WindPlane_Movement: MonoBehaviour
     //Wind Rotate but random whether it start from left or right
     private void Wind_Rotate()
     {
-
         switch (action)
         {
             case 0:
@@ -148,7 +140,8 @@ public class WindPlane_Movement: MonoBehaviour
     {
         //We random the duration number
         //The smaller the range, the harsher the wind.
-        var duration = Random.Range(minRotationSpeed, maxRotationSpeed);
+        var duration = Random.Range(windPlaneScriptableObject.MinRotationSpeed,
+                                         windPlaneScriptableObject.MaxRotationSpeed);
 
         DOTween.SetTweensCapacity(2000, 100);
         //Create a tween sequence
@@ -164,7 +157,7 @@ public class WindPlane_Movement: MonoBehaviour
         .SetLoops(-1, LoopType.Yoyo) //We loop the amount equal of windPlaneMoveduration
         .OnComplete(onTweenComplete);
 
-        Debug.Log("Rotate Left");
+        //Debug.Log("Rotate Left");
     }
 
     //Start rotate to right
@@ -172,7 +165,8 @@ public class WindPlane_Movement: MonoBehaviour
     {
         //We random the duration number
         //The smaller the range, the harsher the wind.
-        var duration = Random.Range(minRotationSpeed, maxRotationSpeed);
+        var duration = Random.Range(windPlaneScriptableObject.MinRotationSpeed,
+                                         windPlaneScriptableObject.MaxRotationSpeed);
 
         DOTween.SetTweensCapacity(2000, 100);
         //Create a tween sequence
@@ -188,20 +182,20 @@ public class WindPlane_Movement: MonoBehaviour
         .SetLoops(-1, LoopType.Yoyo) //We loop the amount equal of windPlaneMoveduration
         .OnComplete(onTweenComplete);
 
-        Debug.Log("Rotate Right");
+        //Debug.Log("Rotate Right");
     }
 
     private void Change_isWindPlaneMovingLeft()
     {
-        isWindPlaneMovingLeft = true;
-        isWindPlaneMovingRight = false;
+        windPlaneScriptableObject.IsWindPlaneMovingLeft = true;
+        windPlaneScriptableObject.IsWindPlaneMovingRight = false;
         //Debug.Log("Moving Left");
     }
 
     private void Change_isWindPlaneMovingRight()
     {
-        isWindPlaneMovingLeft = false;
-        isWindPlaneMovingRight = true;
+        windPlaneScriptableObject.IsWindPlaneMovingLeft = false;
+        windPlaneScriptableObject.IsWindPlaneMovingRight = true;
         //Debug.Log("Moving Right");
     }
 

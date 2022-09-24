@@ -5,9 +5,12 @@ using UnityEngine.Events;
 public class GameOver: MonoBehaviour
 {
     [SerializeField]
+    private CatScriptableObject catScriptableObject;
+
+    [SerializeField]
     private TextMeshProUGUI gameOverTMP, timerTMP;
 
-    [Header("WindPlane_Movement > Wind_RotateStop()")]
+    [Header("WindPlane_Movement > Wind_RotateStop(); CatBalancing > ResetStabil")]
     [SerializeField]
     private UnityEvent gameOverEvent;
 
@@ -15,6 +18,7 @@ public class GameOver: MonoBehaviour
     void Start()
     {
         gameOverTMP.enabled = false;
+        catScriptableObject.HasCatFailed = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,11 +28,14 @@ public class GameOver: MonoBehaviour
             gameOverTMP.enabled = true;
             gameOverTMP.text = "Game Over";
 
+            catScriptableObject.HasCatFailed = true;
+
+
             //Invoke Wind_RotateStop Event
             gameOverEvent?.Invoke();
 
             timerTMP.enabled = false;
         }
-        Debug.Log("Collide with " + other.name);
+        //Debug.Log("Collide with " + other.name);
     }
 }
