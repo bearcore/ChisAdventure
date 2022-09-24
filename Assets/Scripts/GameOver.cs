@@ -47,7 +47,7 @@ public class GameOver: MonoBehaviour
         //Check if the currentScore is bigger than highScore => If yes: Save it to playerPref
         if (catScriptableObject.CurrentScore >= catScriptableObject.HighScore)
         {
-            PlayerPrefs.SetInt("HighScore", catScriptableObject.HighScore);
+            PlayerPrefs.SetInt("HighScore", catScriptableObject.CurrentScore);
             Debug.Log("Game Over. Saving NEW high score");
         }
     }
