@@ -29,7 +29,7 @@ public class SucessClear: MonoBehaviour
         if (!catScriptableObject.HasCatFailed)
         {
             Vector3 resetRotation = new Vector3(0, 0, 0);
-            catGameObject.transform.DORotate(resetRotation, 0.1f);
+            catGameObject.transform.DORotate(resetRotation, 0.01f);
 
             successTMP.enabled = true;
             successTMP.text = "Clear!";

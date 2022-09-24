@@ -15,5 +15,5 @@ MonoBehaviour:
   hasCatFailed: 0
   hasCatSucceed: 0
   stabilizationValue: 0.8
-  highScore: 0
-  currentScore: 9
+  highScore: 12
+  currentScore: 0
