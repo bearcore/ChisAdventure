@@ -11,9 +11,6 @@ public class WindPlane_Movement: MonoBehaviour
 
     [SerializeField]
     private WindPlaneScriptableObject windPlaneScriptableObject;
-
-    [SerializeField]
-    private GameObject catGameObject;
     //[SerializeField]
     private GameObject windPlaneGO;
 
@@ -68,9 +65,6 @@ public class WindPlane_Movement: MonoBehaviour
             //If player succeed eg. Plane was still moving before
             if (windPlaneScriptableObject.IsWindPlaneMoving)
             {
-                Vector3 resetRotation = new Vector3(0, 0, 0);
-                catGameObject.transform.DORotate(resetRotation, 0.1f);
-
                 //After clearing, disabled the timer;
                 timerTMP.enabled = false;
                 //Invoke clear event
