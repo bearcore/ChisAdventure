@@ -51,4 +51,15 @@ public class GameOver: MonoBehaviour
             Debug.Log("Game Over. Saving NEW high score");
         }
     }
+
+    public void ResetCurrentScore()
+    {
+        //If cat has failed before > reset currentScore to 0
+        if (catScriptableObject.HasCatFailed)
+        {
+            catScriptableObject.CurrentScore = 0;
+            //Reset hasFailed status back to false after score Reset
+            catScriptableObject.HasCatFailed = false;
+        }
+    }
 }

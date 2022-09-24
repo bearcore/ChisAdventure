@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts
@@ -7,9 +8,16 @@ namespace Assets.Scripts
     {
         [SerializeField]
         private int sceneIndex;
+
+        [Header("GameOver > ResetCurrentScore")]
+        [SerializeField]
+        private UnityEvent resetSceneEvent;
+
         public void ResetTheScene()
         {
+            resetSceneEvent?.Invoke();
             SceneManager.LoadScene(sceneIndex);
+
         }
     }
 }
