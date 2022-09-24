@@ -1,3 +1,4 @@
+using Assets.PlayerPrefs;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -6,6 +7,9 @@ public class SucessClear: MonoBehaviour
 {
     [SerializeField]
     private CatScriptableObject catScriptableObject;
+    [SerializeField]
+    private WindPlaneScriptableObject windPlaneScriptableObject;
+
     [SerializeField]
     private GameObject catGameObject;
 
@@ -21,7 +25,6 @@ public class SucessClear: MonoBehaviour
     //public method to access in WindPlane_Movement
     public void SuccessfulClear()
     {
-
         //Check if cat has NOT failed before
         if (!catScriptableObject.HasCatFailed)
         {
@@ -31,10 +34,13 @@ public class SucessClear: MonoBehaviour
             successTMP.enabled = true;
             successTMP.text = "Clear!";
 
+            //Add score based on the duration
+            catScriptableObject.CurrentScore += windPlaneScriptableObject.WindPlaneMoveDuration;
+
+
             //If clear, make sure cat is stable regardless
             catScriptableObject.StabilizationValue = 10;
             catScriptableObject.HasCatSucceed = true;
         }
-
     }
 }

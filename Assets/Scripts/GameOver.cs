@@ -25,6 +25,8 @@ public class GameOver: MonoBehaviour
     {
         if (other.tag == "GameOver_Box")
         {
+            SaveHighScore();
+
             gameOverTMP.enabled = true;
             gameOverTMP.text = "Game Over";
 
@@ -37,5 +39,16 @@ public class GameOver: MonoBehaviour
             timerTMP.enabled = false;
         }
         //Debug.Log("Collide with " + other.name);
+    }
+
+    private void SaveHighScore()
+    {
+        //Save score upon Game over
+        //Check if the currentScore is bigger than highScore => If yes: Save it to playerPref
+        if (catScriptableObject.CurrentScore > catScriptableObject.HighScore)
+        {
+            PlayerPrefs.SetInt("HighScore", catScriptableObject.HighScore);
+            Debug.Log("Game Over. Saving NEW high score");
+        }
     }
 }

@@ -45,5 +45,39 @@ public class CatScriptableObject: ScriptableObject
         set => stabilizationValue = value;
     }
 
+    [SerializeField]
+    [Tooltip("My saved High score")]
+    private int highScore;
+
+    public int HighScore
+    {
+        get
+        {
+            return highScore;
+        }
+        set
+        {
+            highScore = value;
+        }
+    }
+
+    [SerializeField]
+    private int currentScore;
+    [Tooltip("My current score")]
+
+    public int CurrentScore
+    {
+        get
+        {
+            return currentScore;
+        }
+        set
+        {
+            currentScore = value;
+        }
+    }
+
+
+
 
 }
