@@ -20,6 +20,17 @@ public class CatBalancing: MonoBehaviour
     //[SerializeField]
     private Vector3 torqueValue;
 
+    public float StabilizationValue
+    {
+        get => stabilizationValue;
+        set => stabilizationValue = value;
+    }
+    public float DampingValue
+    {
+        get => dampingValue;
+        set => dampingValue = value;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +40,7 @@ public class CatBalancing: MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        torqueValue = stabilizationValue * Vector3.Cross(transform.up, Vector3.up) - dampingValue * catRigidbody.angularVelocity;
+        torqueValue = stabilizationValue * Vector3.Cross(transform.up, Vector3.up) - DampingValue * catRigidbody.angularVelocity;
         catRigidbody.AddTorque(torqueValue);
     }
 }

@@ -14,6 +14,8 @@ public class WindPlane_Movement: MonoBehaviour
     [Header("Rotation values")]
     [SerializeField]
     private bool isWindPlaneMoving = false;
+    [SerializeField]
+    private bool isWindPlaneMovingLeft, isWindPlaneMovingRight;
 
     [SerializeField]
     private Vector3 rotation;
@@ -37,6 +39,17 @@ public class WindPlane_Movement: MonoBehaviour
     private float currentTime;
     [SerializeField]
     private TextMeshProUGUI timerTMP;
+
+    public bool IsWindPlaneMovingLeft
+    {
+        get => isWindPlaneMovingLeft;
+        set => isWindPlaneMovingLeft = value;
+    }
+    public bool IsWindPlaneMovingRight
+    {
+        get => isWindPlaneMovingRight;
+        set => isWindPlaneMovingRight = value;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -99,11 +112,29 @@ public class WindPlane_Movement: MonoBehaviour
 
         //isPlaneMoving = false
         isWindPlaneMoving = false;
+        isWindPlaneMovingLeft = false;
+        isWindPlaneMovingRight = false;
 
-        Debug.Log("Wind Stop");
+        //Debug.Log("Wind Stop");
     }
 
+    //Wind Rotate but random whether it start from left or right
     private void Wind_Rotate()
+    {
+        int action = Random.Range(0, 1);
+        switch (action)
+        {
+            case 0:
+                Wind_Rotate_Left();
+                break;
+            case 1:
+                Wind_Rotate_Right();
+                break;
+        }
+    }
+
+    //Start rotate to left
+    private void Wind_Rotate_Left()
     {
         //We random the duration number
         //The smaller the range, the harsher the wind.
@@ -114,24 +145,65 @@ public class WindPlane_Movement: MonoBehaviour
         Sequence windSequence = DOTween.Sequence();
         //First move left
         windSequence.Append(windPlaneGO.transform.DORotate(rotation, duration))
+                    .InsertCallback(0.01f, Change_isWindPlaneMovingLeft)
         //After that, move right
                     .Append(windPlaneGO.transform.DORotate(-rotation, duration))
+                    .InsertCallback(duration + 0.01f, Change_isWindPlaneMovingRight)
         .SetEase(Ease.Linear) //Make sure the tween is smooth
         .SetLoops(-1, LoopType.Yoyo) //We loop the amount equal of windPlaneMoveduration
         .OnComplete(onTweenComplete);
+
+        Debug.Log("Rotate Left");
+    }
+
+    //Start rotate to right
+    private void Wind_Rotate_Right()
+    {
+        //We random the duration number
+        //The smaller the range, the harsher the wind.
+        var duration = Random.Range(minRotationSpeed, maxRotationSpeed);
+
+        DOTween.SetTweensCapacity(2000, 100);
+        //Create a tween sequence
+        Sequence windSequence = DOTween.Sequence();
+        //First move right
+        windSequence.Append(windPlaneGO.transform.DORotate(-rotation, duration))
+                    .InsertCallback(0.01f, Change_isWindPlaneMovingRight)
+        //After that, move left
+                    .Append(windPlaneGO.transform.DORotate(rotation, duration))
+                    .InsertCallback(duration + 0.01f, Change_isWindPlaneMovingLeft)
+        .SetEase(Ease.Linear) //Make sure the tween is smooth
+        .SetLoops(-1, LoopType.Yoyo) //We loop the amount equal of windPlaneMoveduration
+        .OnComplete(onTweenComplete);
+
+        Debug.Log("Rotate Right");
+    }
+
+    private void Change_isWindPlaneMovingLeft()
+    {
+        isWindPlaneMovingLeft = true;
+        isWindPlaneMovingRight = false;
+        Debug.Log("Moving Left");
+    }
+
+    private void Change_isWindPlaneMovingRight()
+    {
+        isWindPlaneMovingLeft = false;
+        isWindPlaneMovingRight = true;
+        Debug.Log("Moving Right");
     }
 
     private void Wind_RotateReset()
     {
         Vector3 resetPos = new Vector3(0, 0, 0);
         windPlaneGO.transform.DORotate(resetPos, 1);
-        Debug.Log("Reset plane to 0 position");
+        //Debug.Log("Reset plane to 0 position");
     }
 
     private void onTweenComplete()
     {
         //+1 to the complete phase
-        Debug.Log("Finished 1 phase");
+        //Debug.Log("Finished 1 phase");
     }
 
 }
