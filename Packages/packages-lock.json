@@ -1,16 +1,18 @@
 {
   "dependencies": {
-    "com.unity.2d.sprite": {
-      "version": "1.0.0",
+    "com.febucci.custom-hierarchy": {
+      "version": "https://github.com/febucci/unitypackage-custom-hierarchy.git",
       "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "093baf4e09c2cd21c284303a977ec112a43041a7"
     },
-    "com.unity.2d.tilemap": {
-      "version": "1.0.0",
+    "com.kelvip.quick-scene-switcher": {
+      "version": "https://github.com/Kelvin-CD/Quick-Scene-Switcher.git#upm",
       "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "79eaa62b8bfa59c1002ff85c665246bd23fbe49d"
     },
     "com.unity.burst": {
       "version": "1.7.3",
@@ -18,6 +20,15 @@
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.cinemachine": {
+      "version": "2.8.9",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.31"
       },
       "url": "https://packages.unity.com"
     },
@@ -76,20 +87,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.postprocessing": {
-      "version": "2.3.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.progrids": {
-      "version": "3.0.3-preview.4",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.render-pipelines.core": {
       "version": "12.1.7",
       "depth": 1,
@@ -139,7 +136,7 @@
       }
     },
     "com.unity.test-framework": {
-      "version": "1.1.31",
+      "version": "1.1.33",
       "depth": 0,
       "source": "registry",
       "dependencies": {
