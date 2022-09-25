@@ -28,6 +28,8 @@ public class CatAnimController : MonoBehaviour
     {
         catAnimator = GetComponent<Animator>();
         state = 0;
+
+        CatRotationStuff.OnFall.AddListener(() => catAnimator.SetTrigger("FallDown"));
     }
 
     // Update is called once per frame

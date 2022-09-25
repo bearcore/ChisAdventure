@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
 using Assets.PlayerPrefs;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CatController: MonoBehaviour
@@ -23,6 +26,18 @@ public class CatController: MonoBehaviour
 
     [SerializeField]
     private Image arrowLeft, arrowRight;
+
+    public List<KeyCode> LeftButtons = new List<KeyCode>
+    {
+        KeyCode.LeftArrow, KeyCode.A
+    };
+    public List<KeyCode> RightButtons = new List<KeyCode>
+    {
+        KeyCode.RightArrow, KeyCode.D
+    };
+
+    public static UnityEvent LeftPressed = new UnityEvent();
+    public static UnityEvent RightPressed = new UnityEvent();
 
 
     //The logic of this controller is basically to click the corresponding arrow
@@ -84,38 +99,42 @@ public class CatController: MonoBehaviour
         //If plane is moving left -> Player need to click Right
         if (windPlaneScriptableObject.IsWindPlaneMovingLeft)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (LeftButtons.Any(x => Input.GetKeyDown(x)))
             {
-                //Debug.Log("Correct to the Left!");
+                Debug.Log("Correct to the Left!");
                 catScriptableObject.StabilizationValue += correctClickStabil_Value;
+                LeftPressed.Invoke();
             }
 
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (RightButtons.Any(x => Input.GetKeyDown(x)))
             {
                 catScriptableObject.StabilizationValue -= correctClickStabil_Value;
-                //Debug.Log("FALSE!!! (left)");
+                Debug.Log("FALSE!!! (left)");
+                RightPressed.Invoke();
             }
         }
 
         //If plane is moving Right -> Player need to click Left
         else if (windPlaneScriptableObject.IsWindPlaneMovingRight)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (LeftButtons.Any(x => Input.GetKeyDown(x)))
             {
-                //Debug.Log("Correct to the Right!");
-                catScriptableObject.StabilizationValue += correctClickStabil_Value;
+                Debug.Log("Correct to the Right!");
+                catScriptableObject.StabilizationValue -= correctClickStabil_Value;
+                LeftPressed.Invoke();
             }
 
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (RightButtons.Any(x => Input.GetKeyDown(x)))
             {
-                catScriptableObject.StabilizationValue -= correctClickStabil_Value;
-                //Debug.Log("FALSE!!! (right)");
+                catScriptableObject.StabilizationValue += correctClickStabil_Value;
+                Debug.Log("FALSE!!! (right)");
+                RightPressed.Invoke();
             }
         }
 
         else
         {
-            Debug.Log("Nothing is happening");
+            //Debug.Log("Nothing is happening");
         }
     }
 

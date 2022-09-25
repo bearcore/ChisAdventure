@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CatBalancing: MonoBehaviour
+public class CatBalancing : MonoBehaviour
 {
     //Private var for cat's rb
     [SerializeField]
@@ -28,6 +28,9 @@ public class CatBalancing: MonoBehaviour
     void Start()
     {
         catRigidbody = GetComponent<Rigidbody>();
+
+        CatController.RightPressed.AddListener(RightPressed);
+        CatController.RightPressed.AddListener(LeftPressed);
     }
 
     // Update is called once per frame
@@ -41,5 +44,15 @@ public class CatBalancing: MonoBehaviour
     public void ResetStabilizationValue()
     {
         catScriptableObject.StabilizationValue = 0;
+    }
+
+    private void RightPressed()
+    {
+        transform.eulerAngles = new Vector3(0, 0, -15);
+    }
+
+    private void LeftPressed()
+    {
+        transform.eulerAngles = new Vector3(0, 0, 15);
     }
 }

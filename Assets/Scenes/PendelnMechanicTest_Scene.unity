@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -327,15 +327,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cce8e450178ce54181bfc3d33e43ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windPlaneScriptableObject: {fileID: 11400000, guid: 50f38030ee1224945b4ffb59b9ef44f9,
-    type: 2}
-  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af,
-    type: 2}
+  windPlaneScriptableObject: {fileID: 11400000, guid: 50f38030ee1224945b4ffb59b9ef44f9, type: 2}
+  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af, type: 2}
   correctClickStabil_Value: 0.35
   windPlane_Movement: {fileID: 1261202590}
   fadeDuration: 0.01
   arrowLeft: {fileID: 1578122003}
   arrowRight: {fileID: 520151369}
+  LeftButtons: 1401000061000000
+  RightButtons: 1301000064000000
 --- !u!4 &161154692
 Transform:
   m_ObjectHideFlags: 0
@@ -591,8 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c62a60c535b61459d2ec2051e67e52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af,
-    type: 2}
+  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af, type: 2}
   currentScoreTMP: {fileID: 1328199783}
   highScoreTMP: {fileID: 1321272899}
 --- !u!4 &891421067
@@ -703,15 +702,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261202585}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6731cbbd61187f94daf938c3250b73da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af,
-    type: 2}
-  windPlaneScriptableObject: {fileID: 11400000, guid: 50f38030ee1224945b4ffb59b9ef44f9,
-    type: 2}
+  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af, type: 2}
+  windPlaneScriptableObject: {fileID: 11400000, guid: 50f38030ee1224945b4ffb59b9ef44f9, type: 2}
   rotation: {x: 0, y: 0, z: 17}
   currentTime: 0
   timerTMP: {fileID: 1319314240}
@@ -767,8 +764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0918d7dccfe4c42a43ed1548676027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af,
-    type: 2}
+  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af, type: 2}
   gameOverTMP: {fileID: 835189386}
   timerTMP: {fileID: 1319314240}
   gameOverEvent:
@@ -1551,10 +1547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c97a9c03e4c5a649b6eac732aa35395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af,
-    type: 2}
-  windPlaneScriptableObject: {fileID: 11400000, guid: 50f38030ee1224945b4ffb59b9ef44f9,
-    type: 2}
+  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af, type: 2}
+  windPlaneScriptableObject: {fileID: 11400000, guid: 50f38030ee1224945b4ffb59b9ef44f9, type: 2}
   catGameObject: {fileID: 1694920541}
   successTMP: {fileID: 1970512001}
 --- !u!4 &1622328279
@@ -1583,6 +1577,7 @@ GameObject:
   - component: {fileID: 1681769309}
   - component: {fileID: 1681769308}
   - component: {fileID: 1681769307}
+  - component: {fileID: 1681769310}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1656,6 +1651,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1681769310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681769306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1694920541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1668,8 +1696,8 @@ GameObject:
   - component: {fileID: 1694920546}
   - component: {fileID: 1694920545}
   - component: {fileID: 1694920544}
-  - component: {fileID: 1694920543}
   - component: {fileID: 1694920542}
+  - component: {fileID: 1694920548}
   m_Layer: 0
   m_Name: Cat_PlaceHolder
   m_TagString: Player
@@ -1689,26 +1717,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c008b265a6d9b4b4baf8fb2a35489545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catRigidbody: {fileID: 1694920543}
-  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af,
-    type: 2}
-  dampingValue: 2.5
---- !u!54 &1694920543
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1694920541}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  catRigidbody: {fileID: 0}
+  catScriptableObject: {fileID: 11400000, guid: ff2d3331a604d494683ad3c20362d3af, type: 2}
+  dampingValue: 4
 --- !u!136 &1694920544
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1789,6 +1800,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1694920548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694920541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f021f03167847339d8eb08577828dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WindStrength: 180
+  Speed: 1
+  PressInfluence: 60
+  Difficulty: 1
+  LeftButtons: 1401000061000000
+  RightButtons: 1301000064000000
 --- !u!1 &1790196347
 GameObject:
   m_ObjectHideFlags: 0
