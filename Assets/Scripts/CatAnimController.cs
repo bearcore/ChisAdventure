@@ -30,6 +30,8 @@ public class CatAnimController : MonoBehaviour
         state = 0;
 
         CatRotationStuff.OnFall.AddListener(() => catAnimator.SetTrigger("FallDown"));
+
+        Lerp.Delay(Random.Range(3f, 7f), Jiggle);
     }
 
     // Update is called once per frame
@@ -69,14 +71,21 @@ public class CatAnimController : MonoBehaviour
         catAnimator.SetInteger("JiggleAnimationSelect", Random.Range(0, JiggleAnimations));
         catAnimator.SetTrigger("Jiggle");
         jiggleTimeOut = 0;
+        Lerp.Delay(Random.Range(3f, 7f), Jiggle);
     }
     public void Release()
     {
         catAnimator.SetTrigger("Jump");
+        catAnimator.SetTrigger("EnableLean");
     }
 
     public void Land()
     {
         catAnimator.SetTrigger("Land");
+    }
+
+    public void SetLean(float lean)
+    {
+        catAnimator.SetFloat("LeanBlend", lean);
     }
 }

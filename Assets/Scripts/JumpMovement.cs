@@ -11,6 +11,7 @@ public class JumpMovement : MonoBehaviour
     public List<Transform> Targets;
     public AnimationCurve Curve;
     public float JumpDuration = 6f;
+    public GameObject LaunchClip;
 
     public List<float> Difficulties = new List<float>
     {
@@ -22,6 +23,8 @@ public class JumpMovement : MonoBehaviour
         if (target > 5) target = 5;
 
         Sounds.PlayJumpSound();
+        if(target > 3)
+        LaunchClip.SetActive(true);
 
         var initialPos = transform.position;
         Lerp.To(JumpDuration, t =>

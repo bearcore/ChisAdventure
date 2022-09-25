@@ -17,6 +17,7 @@ public class CatRotationStuff : MonoBehaviour
     public TextMeshProUGUI PointsText;
     public GameObject RestartButton;
     public CanvasGroup PointsCanvasGroup;
+    public CatAnimController AnimController;
 
     private float _initialDelay;
 
@@ -85,6 +86,7 @@ public class CatRotationStuff : MonoBehaviour
         PointsText.text = ((int)Points).ToString();
         PointsText.transform.localScale = Vector3.one * Mathf.Clamp(1 + Points / 20000, 1, 2.5f);
         CameraShake.SetShake(Mathf.Abs(z) / 90f, 0);
+        AnimController.SetLean((z + 90f) / 180f);
 
         if (Mathf.Abs(z) > 90)
         {
@@ -99,6 +101,8 @@ public class CatRotationStuff : MonoBehaviour
             Lerp.FromTo(1f, t => transform.eulerAngles = _initialRotation + new Vector3(0f, 0f, t), initialZ, 0f);
             CameraShake.SetShake(0f, 0);
             RestartButton.SetActive(true);
+
+            AnimController.SetLean(0.5f);
         }
     }
 

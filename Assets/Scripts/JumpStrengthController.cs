@@ -28,12 +28,6 @@ public class JumpStrengthController : MonoBehaviour
     {
         deltaTimeSum += Time.deltaTime * pitchSpeed;
 
-        if (deltaTimeSum % 4 > 3.5f && !running)
-        {
-            CatAnimController.Jiggle();
-            
-        }
-
         if (Input.GetKey("space"))
         {
             if(!running)
