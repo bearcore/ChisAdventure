@@ -980,7 +980,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24c54fa00520483f80c2a6b8154cbd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IdleSounds: []
+  IdleSounds:
+  - {fileID: 8300000, guid: d5f766c559fb34c2aaeef639ddbeb086, type: 3}
+  - {fileID: 8300000, guid: 1e20331b116214e2a9769980092e1395, type: 3}
+  - {fileID: 8300000, guid: a363ae6c3304644bd92ad4b82a5973c6, type: 3}
   JumpSounds: []
   Music: {fileID: 16564388}
   IntroMusic: {fileID: 956081657}

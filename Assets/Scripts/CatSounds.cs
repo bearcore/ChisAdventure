@@ -45,7 +45,11 @@ public class CatSounds : MonoBehaviour
 
     private void PlayIdleSound()
     {
-        PlayFromList(IdleSounds);
+        if (!_didStart)
+        {
+            PlayFromList(IdleSounds);
+            Lerp.Delay(Random.Range(MinIdleCooldown, MaxIdleCooldown), PlayIdleSound);
+        }
     }
 
     public void PlayJumpSound()
@@ -56,6 +60,6 @@ public class CatSounds : MonoBehaviour
     private void PlayFromList(List<AudioClip> list)
     {
         if (list.Count == 0) return;
-        AudioSource.PlayClipAtPoint(list[Random.Range(0, list.Count)], transform.position);
+        AudioSource.PlayClipAtPoint(list[Random.Range(0, list.Count)], Camera.main.transform.position);
     }
 }
