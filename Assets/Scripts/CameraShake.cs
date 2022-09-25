@@ -8,11 +8,14 @@ public class CameraShake : MonoBehaviour
     private CinemachineVirtualCamera _virtualCamera;
     private CinemachineBasicMultiChannelPerlin _noise;
     private Coroutine _shakeRoutine;
+    private Coroutine _zoomRoutine;
     private static CameraShake _instance;
+    private float _defaultFov;
 
     private void Awake()
     {
         _virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        _defaultFov = _virtualCamera.m_Lens.FieldOfView;
         _noise = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         _instance = this;
@@ -36,10 +39,41 @@ public class CameraShake : MonoBehaviour
 
         _noise.m_AmplitudeGain = strength;
         _noise.m_FrequencyGain = strength * 50;
-        _shakeRoutine = Lerp.Delay(duration, () =>
+        if(duration > 0f)
         {
-            _noise.m_AmplitudeGain = 0;
-            _noise.m_FrequencyGain = 0;
-        });
+            _shakeRoutine = Lerp.Delay(duration, () =>
+            {
+                _noise.m_AmplitudeGain = 0;
+                _noise.m_FrequencyGain = 0;
+            });
+        }
+    }
+
+    public static void SetZoom(float zoom = 1f)
+    {
+        _instance.SetZoomInternal(zoom);
+    }
+
+    private void SetZoomInternal(float zoom)
+    {
+        if(_zoomRoutine != null)
+        {
+            CoroutineHelper.StopGlobalCoroutine(_zoomRoutine);
+        }
+
+        _zoomRoutine = Lerp.FromTo(0.2f, t =>
+        {
+            _virtualCamera.m_Lens.FieldOfView = t;
+        }, _virtualCamera.m_Lens.FieldOfView, _defaultFov / zoom);
+    }
+
+    public static void SetFollowTarget(Transform target)
+    {
+        _instance.SetFollowTargetInternal(target);
+    }
+
+    private void SetFollowTargetInternal(Transform target)
+    {
+        _virtualCamera.Follow = target;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class JumpStrengthController : MonoBehaviour
 {
     public CatAnimController CatAnimController;
+    public JumpMovement Movement;
     private int state;
     private int old_state;
     private float deltaTimeSum;
@@ -58,6 +59,7 @@ public class JumpStrengthController : MonoBehaviour
         if (Input.GetKeyUp("space"))
         {
             CatAnimController.Release();
+            Movement.JumpToTarget(state - 1);
             this.enabled = false;
         }
 
