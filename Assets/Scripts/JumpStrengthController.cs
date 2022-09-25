@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class JumpStrengthController : MonoBehaviour
 {
     public CatAnimController CatAnimController;
     public JumpMovement Movement;
+    public GameObject CutsceneObject;
     private int state;
     private int old_state;
     private float deltaTimeSum;
@@ -38,6 +40,7 @@ public class JumpStrengthController : MonoBehaviour
             {
                 deltaTimeSum = 1;
                 running = true;
+                CutsceneObject.GetComponent<PlayableDirector>().time = 3;
             }
             //  Debug.Log(state);
             state = (int)deltaTimeSum;
